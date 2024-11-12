@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: web-ci
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "apps/web/**"
+  pull_request:
+    branches: [master]
+    paths:
+      - "apps/web/**"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24-04
+    env:
+      HUSKY: 0
+
+    strategy:
+      matrix:
+        node-version: [22.2.0]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Get pnpm store directory path
+        id: pnpm-store-dir-path
+        run: echo "::set-output name=dir::$(pnpm store path)"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v2
+        env:
+            cache-name: cache-pnpm-store
+        id: pnpm-store-cache
+        with:
+            path: ${{ steps.pnpm-store-dir-path.outputs.dir }}
+            key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+            restore-keys: |
+                ${{ runner.os }}-pnpm-
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run prepare.ci.api
+      - run: pnpm run build.ci.api
+      - run: pnpm run test.ci.api

@@ -1,0 +1,18 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.0/schema.json",
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "style": {
+                "noNamespace": "off",
+                "noParameterAssign": "off"
+            }
+        }
+    },
+    "javascript": {
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "name": "monorepo",
+    "private": true,
+    "scripts": {
+        "clean": "turbo run clean",
+        "build": "turbo run build --cache-dir=.turbo",
+        "dev": "turbo dev",
+        "test": "turbo run test --cache-dir=.turbo -- --passWithNoTests",
+        "test:watch": "turbo run test:watch --cache-dir=.turbo -- --passWithNoTests",
+        "test:cov": "turbo run test:cov --cache-dir=.turbo -- --passWithNoTests",
+        "format": "biome format . --write",
+        "lint": "biome check . --write",
+        "prepare": "husky || true"
+    },
+    "dependencies": {
+        "node": "catalog:"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "catalog:",
+        "@commitlint/cli": "catalog:",
+        "@commitlint/config-conventional": "catalog:",
+        "@commitlint/config-pnpm-scopes": "catalog:",
+        "@commitlint/prompt-cli": "catalog:",
+        "@commitlint/types": "catalog:",
+        "@repo/typescript-config": "workspace:*",
+        "@types/jest": "catalog:",
+        "@types/node": "catalog:",
+        "husky": "catalog:",
+        "jest": "catalog:",
+        "run-script-webpack-plugin": "catalog:",
+        "turbo": "catalog:",
+        "webpack": "catalog:",
+        "webpack-node-externals": "catalog:"
+    },
+    "packageManager": "pnpm@9.12.3",
+    "engines": {
+        "node": ">=22"
+    }
+}

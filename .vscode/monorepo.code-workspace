@@ -1,0 +1,41 @@
+{
+    "folders": [
+        {
+            "name": "monorepo",
+            "path": ".."
+        },
+        {
+            "name": "api",
+            "path": "../apps/api"
+        },
+        {
+            "name": "web",
+            "path": "../apps/web"
+        },
+        {
+            "name": "database",
+            "path": "../packages/database"
+        },
+        {
+            "name": "types",
+            "path": "../packages/types"
+        },
+        {
+            "name": "ui",
+            "path": "../packages/ui"
+        },
+        {
+            "name": "util",
+            "path": "../packages/util"
+        }
+    ],
+    "settings": {
+        "jest.enable": true,
+        "jest.disabledWorkspaceFolders": ["monorepo"],
+        "explorer.compactFolders": false,
+        "explorer.excludeGitIgnore": true
+    },
+    "extensions": {
+        "recommendations": ["biomejs.biome", "github.vscode-github-actions", "orta.vscode-jest", "vercel.turbo-vsc"]
+    }
+}

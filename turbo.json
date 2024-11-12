@@ -1,0 +1,71 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": [
+        "**/.env.*local",
+        "tsconfig.json"
+    ],
+    "ui": "tui",
+    "tasks": {
+        "clean": {
+            "cache": false
+        },
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
+        "//#format": {
+            "cache": false
+        },
+        "//#lint": {
+            "cache": false
+        },
+        "dev": {
+            "dependsOn": [
+                "build",
+                "^dev"
+            ],
+            "cache": false,
+            "persistent": true
+        },
+        "start": {
+            "dependsOn": [
+                "build",
+                "^start"
+            ],
+            "cache": true,
+            "persistent": true
+        },
+        "test": {
+            "dependsOn": [
+                "^test",
+                "build"
+            ]
+        },
+        "test:watch": {
+            "dependsOn": [
+                "^test",
+                "build"
+            ],
+            "cache": false,
+            "persistent": true
+        },
+        "test:cov": {
+            "dependsOn": [
+                "build"
+            ]
+        },
+        "test:e2e": {
+            "dependsOn": [
+                "build",
+                "test"
+            ]
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "extends": ["./biome/formatter.json", "./biome/linter.json"],
+    "files": {
+        "ignore": [
+            "**/.turbo/**",
+            "*/*/dist/**/*",
+            "apps/web/.next/**/*",
+            "apps/storybook/storybook-static/**/*",
+            "out/**/*",
+            "*/*/coverage",
+            "*/*/test/**/*.json",
+            "**/node_modules/**/*",
+            "**/*.tsbuildinfo"
+        ]
+    }
+}
