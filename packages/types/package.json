@@ -1,0 +1,78 @@
+{
+    "name": "@repo/types",
+    "type": "module",
+    "types": "./src/types.d.ts",
+    "exports": {
+        "./array/ArrLen": {
+            "import": "./src/array/ArrLen.ts",
+            "require": "./dist/array/ArrLen.cjs"
+        },
+        "./array/AtLeast": {
+            "import": "./src/array/AtLeast.ts",
+            "require": "./dist/array/AtLeast.cjs"
+        },
+        "./array/FixedArray": {
+            "import": "./src/array/FixedArray.ts",
+            "require": "./dist/array/FixedArray.cjs"
+        },
+        "./array/RangedArray": {
+            "import": "./src/array/RangedArray.ts",
+            "require": "./dist/array/RangedArray.cjs"
+        },
+        "./array/Some": {
+            "import": "./src/array/Some.ts",
+            "require": "./dist/array/Some.cjs"
+        },
+        "./array/UpTo": {
+            "import": "./src/array/UpTo.ts",
+            "require": "./dist/array/UpTo.cjs"
+        },
+        "./number/Integer": {
+            "import": "./src/number/Integer.ts",
+            "require": "./dist/number/Integer.cjs"
+        },
+        "./number/Natural": {
+            "import": "./src/number/Natural.ts",
+            "require": "./dist/number/Natural.cjs"
+        },
+        "./number/PositiveInteger": {
+            "import": "./src/number/PositiveInteger.ts",
+            "require": "./dist/number/PositiveInteger.cjs"
+        },
+        "./number/Range": {
+            "import": "./src/number/Range.ts",
+            "require": "./dist/number/Range.cjs"
+        },
+        "./schema/JSONSchema": {
+            "import": "./src/schema/JSONSchema.ts",
+            "require": "./dist/schema/JSONSchema.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "test": "jest --passWithNoTests",
+        "test:watch": "jest --watch --passWithNoTests",
+        "test:cov": "jest --coverage --passWithNoTests"
+    },
+    "dependencies": {
+        "ajv": "catalog:",
+        "ajv-errors": "catalog:",
+        "ajv-formats": "catalog:"
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "@turbo/gen": "catalog:",
+        "@types/jest": "catalog:",
+        "@types/node": "catalog:",
+        "jest": "catalog:",
+        "jest-extended": "catalog:",
+        "ts-arithmetic": "catalog:",
+        "ts-jest": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    },
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ]
+}
