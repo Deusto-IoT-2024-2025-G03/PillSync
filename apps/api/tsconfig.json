@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "incremental": true,
+        "inlineSources": true,
+        "isolatedModules": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "paths": {
+            "/*": ["src/*"],
+            "config/*": ["src/config/*"],
+            "dev/*": ["src/dev/*"],
+            "health/*": ["src/health/*"],
+            "interceptor/*": ["src/interceptor/*"],
+            "middleware/*": ["src/middleware/*"],
+            "openapi/*": ["src/openapi/*"],
+            "pipe/*": ["src/pipe/*"],
+            "route/*": ["src/route/*"],
+            "security/*": ["src/security/*"],
+            "secrets": ["secrets/*"],
+            "test/*": ["test/*"]
+        },
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "rootDir": ".",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "target": "esnext",
+        "types": ["../../packages/types/src/types.d.ts", "@types/jest", "@types/node"]
+    },
+    "extends": "@repo/typescript-config/base.json",
+    "ts-node": {
+        "experimentalResolver": true,
+        "files": true,
+        "transpileOnly": false
+    }
+}
