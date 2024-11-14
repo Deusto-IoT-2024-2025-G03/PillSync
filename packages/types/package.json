@@ -71,8 +71,5 @@
         "tsup": "catalog:",
         "typescript": "catalog:"
     },
-    "moduleDirectories": [
-        "node_modules",
-        "src"
-    ]
+    "moduleDirectories": ["node_modules", "src"]
 }

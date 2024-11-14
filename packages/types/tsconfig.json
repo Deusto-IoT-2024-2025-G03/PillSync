@@ -1,51 +1,30 @@
 {
     "compilerOptions": {
         "baseUrl": "./",
-        "lib": [
-            "ESNext"
-        ],
+        "lib": ["ESNext"],
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "outDir": "dist",
         "paths": {
-            "@repo/types/*": [
-                "src/*"
-            ],
-            "/*": [
-                "src/*"
-            ],
-            "array/*": [
-                "src/array/*"
-            ],
-            "schema/*": [
-                "src/schema/*"
-            ],
+            "@repo/types/*": ["src/*"],
+            "/*": ["src/*"],
+            "array/*": ["src/array/*"],
+            "schema/*": ["src/schema/*"]
         },
         "resolveJsonModule": true,
         "rootDir": ".",
         "strict": true,
         "target": "ESNext",
-        "types": [
-            "@types/jest",
-            "@types/node"
-        ]
+        "types": ["@types/jest", "@types/node"]
     },
     "deleteOutDir": true,
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
+    "exclude": ["node_modules", "dist"],
     "extends": "@repo/typescript-config/base.json",
-    "include": [
-        "src"
-    ],
+    "include": ["src"],
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS",
-            "types": [
-                "./src/types.d.ts",
-                "@types/node"
-            ]
+            "types": ["./src/types.d.ts", "@types/node"]
         },
         "transpileOnly": true
     }
