@@ -1,7 +1,6 @@
 {
     "name": "@repo/types",
     "type": "module",
-    "types": "./src/types.d.ts",
     "exports": {
         "./array/ArrLen": {
             "import": "./src/array/ArrLen.ts",
@@ -71,5 +70,8 @@
         "tsup": "catalog:",
         "typescript": "catalog:"
     },
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ]
 }
