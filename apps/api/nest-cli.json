@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json.schemastore.org/nest-cli",
+    "collection": "@nestjs/schematics",
+
+    "root": ".",
+    "sourceRoot": "src",
+
+    "monorepo": true,
+
+    "compilerOptions": {
+        "deleteOutDir": true,
+        "tsConfigPath": "tsconfig.build.json",
+
+        "builder": {
+            "type": "swc",
+            "typeCheck": true,
+            "options": {
+                "swcrcPath": ".swcrc"
+            }
+        },
+
+        "assets": ["../secrets/**", "**/*.json", "**/*.yaml", "**/*.yml", "**/*.hbs"],
+        "watchAssets": true
+    },
+
+    "projects": {
+        "api": {
+            "type": "application",
+            "entryFile": "main",
+
+            "root": ".",
+            "sourceRoot": "src"
+        }
+    }
+}

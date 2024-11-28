@@ -11,11 +11,13 @@
         "incremental": true,
         "inlineSources": true,
         "isolatedModules": true,
+        "lib": ["ESNext"],
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
             "/*": ["src/*"],
             "config/*": ["src/config/*"],
+            "decorator/*": ["src/decorator/*"],
             "dev/*": ["src/dev/*"],
             "health/*": ["src/health/*"],
             "interceptor/*": ["src/interceptor/*"],
@@ -31,14 +33,20 @@
         "resolveJsonModule": true,
         "rootDir": ".",
         "skipLibCheck": true,
+        "strict": true,
         "sourceMap": true,
-        "target": "esnext",
-        "types": ["../../packages/types/src/types.d.ts", "@types/jest", "@types/node"]
+        "target": "ESNext",
+        "types": ["@types/jest", "@types/node"]
     },
     "extends": "@repo/typescript-config/base.json",
+    "exclude": ["node_modules"],
     "ts-node": {
         "experimentalResolver": true,
         "files": true,
-        "transpileOnly": false
+        "transpileOnly": false,
+        "compilerOptions": {
+            "module": "CommonJS",
+            "types": ["./src/types.d.ts", "@types/node"]
+        }
     }
 }

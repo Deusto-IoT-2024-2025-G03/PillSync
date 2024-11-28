@@ -19,6 +19,8 @@
         "lint": "biome check . --write"
     },
     "dependencies": {
+        "@liaoliaots/nestjs-redis": "catalog:",
+        "@liaoliaots/nestjs-redis-health": "catalog:",
         "@nestjs/axios": "catalog:",
         "@nestjs/common": "catalog:",
         "@nestjs/config": "catalog:",
@@ -33,6 +35,7 @@
         "axios": "catalog:",
         "compression": "catalog:",
         "helmet": "catalog:",
+        "ioredis": "catalog:",
         "joi": "catalog:",
         "js-yaml": "catalog:",
         "reflect-metadata": "catalog:",
@@ -62,6 +65,7 @@
         "supertest": "catalog:",
         "swc-loader": "catalog:",
         "ts-arithmetic": "catalog:",
+        "tsconfig-paths-webpack-plugin": "catalog:",
         "ts-jest": "catalog:",
         "ts-loader": "catalog:",
         "ts-node": "catalog:",
