@@ -379,18 +379,33 @@ type JSONSchema<T = any> =
     | { readonly [K in keyof _JSONSchema<T>]?: _JSONSchema<T>[K] }
     | ({ $ref: JSONSchema.Ref } & { [K in keyof _JSONSchema<T>]?: never })
 
-export function Partialize(x: JSONSchema | JSONSchema[keyof JSONSchema]): JSONSchema | JSONSchema[keyof JSONSchema] {
+export function Partialize(
+    x: JSONSchema | JSONSchema[keyof JSONSchema],
+    context?: { $id?: JSONSchema['$id'] }
+): JSONSchema | JSONSchema[keyof JSONSchema] {
     if (!x) return x
     if (typeof x !== 'object') return x
-    if (Array.isArray(x)) return x.map(Partialize)
+    if (Array.isArray(x)) return x.map(x => Partialize(x, context))
 
     let { $id, $ref, required, ...rest } = x
 
-    if ($id && !$id.endsWith('_partial')) $id = `${$id}_partial`
-    if ($ref && !$ref.endsWith('_partial')) $ref = `${$ref}_partial`
+    if ($id === '#' && typeof context?.$id === 'string') $id = context.$id
+
+    if ($id !== '#') {
+        if ($id && !$id.endsWith('_partial')) $id = `${$id}_partial`
+        if ($ref && !$ref.endsWith('_partial')) $ref = `${$ref}_partial`
+    }
 
     rest = {
-        ...Object.fromEntries(Object.entries(rest).map(([k, v]) => [k, k === 'not' ? v : Partialize(v)])),
+        ...Object.fromEntries(
+            Object.entries(rest).map(([k, v]) => {
+                if (k === 'not') return [k, v]
+
+                if (typeof v === 'object' && v && '$id' in v && typeof v.$id === 'string') context = { $id: v.$id }
+
+                return [k, v]
+            })
+        ),
         $id,
         $ref,
     }
