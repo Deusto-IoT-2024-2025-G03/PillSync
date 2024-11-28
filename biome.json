@@ -5,8 +5,6 @@
         "ignore": [
             "**/.turbo/**",
             "*/*/dist/**/*",
-            "apps/web/.next/**/*",
-            "apps/storybook/storybook-static/**/*",
             "out/**/*",
             "*/*/coverage",
             "*/*/test/**/*.json",
