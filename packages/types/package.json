@@ -45,6 +45,10 @@
         "./schema/JSONSchema": {
             "import": "./src/schema/JSONSchema.ts",
             "require": "./dist/schema/JSONSchema.cjs"
+        },
+        "./util/RequestMethod": {
+            "import": "./src/util/RequestMethod.ts",
+            "require": "./dist/util/RequestMethod.cjs"
         }
     },
     "scripts": {

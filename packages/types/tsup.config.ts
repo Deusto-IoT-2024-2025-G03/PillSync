@@ -15,6 +15,8 @@ export default defineConfig({
         'src/number/Range.ts',
 
         'src/schema/JSONSchema.ts',
+
+        'src/util/RequestMethod.ts',
     ],
     format: ['cjs', 'esm'],
     sourcemap: true,

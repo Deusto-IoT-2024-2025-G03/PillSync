@@ -9,7 +9,8 @@
             "@repo/types/*": ["src/*"],
             "/*": ["src/*"],
             "array/*": ["src/array/*"],
-            "schema/*": ["src/schema/*"]
+            "schema/*": ["src/schema/*"],
+            "util/*": ["src/util/*"]
         },
         "resolveJsonModule": true,
         "rootDir": ".",
