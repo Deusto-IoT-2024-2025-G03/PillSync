@@ -26,6 +26,30 @@
             "import": "./src/array/UpTo.ts",
             "require": "./dist/array/UpTo.cjs"
         },
+        "./event/Duration": {
+            "import": "./src/event/Duration.ts",
+            "require": "./dist/event/Duration.cjs"
+        },
+        "./event/Event": {
+            "import": "./src/event/Event.ts",
+            "require": "./dist/event/Event.cjs"
+        },
+        "./event/Melody": {
+            "import": "./src/event/Melody.ts",
+            "require": "./dist/event/Melody.cjs"
+        },
+        "./event/Message": {
+            "import": "./src/event/Message.ts",
+            "require": "./dist/event/Message.cjs"
+        },
+        "./event/Slot": {
+            "import": "./src/event/Slot.ts",
+            "require": "./dist/event/Slot.cjs"
+        },
+        "./event/Trigger": {
+            "import": "./src/event/Trigger.ts",
+            "require": "./dist/event/Trigger.cjs"
+        },
         "./number/Integer": {
             "import": "./src/number/Integer.ts",
             "require": "./dist/number/Integer.cjs"
@@ -46,9 +70,25 @@
             "import": "./src/schema/JSONSchema.ts",
             "require": "./dist/schema/JSONSchema.cjs"
         },
+        "./util/CronTime": {
+            "import": "./src/util/CronTime.ts",
+            "require": "./dist/util/CronTime.cjs"
+        },
+        "./util/Enumerate": {
+            "import": "./src/util/Enumerate.ts",
+            "require": "./dist/util/Enumerate.cjs"
+        },
+        "./util/Permutation": {
+            "import": "./src/util/Permutation.ts",
+            "require": "./dist/util/Permutation.cjs"
+        },
         "./util/RequestMethod": {
             "import": "./src/util/RequestMethod.ts",
             "require": "./dist/util/RequestMethod.cjs"
+        },
+        "./util/id/UserID": {
+            "import": "./src/util/id/UserID.ts",
+            "require": "./dist/util/id/UserID.cjs"
         }
     },
     "scripts": {

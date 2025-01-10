@@ -9,6 +9,13 @@ export default defineConfig({
         'src/array/Some.ts',
         'src/array/UpTo.ts',
 
+        'src/event/Duration.ts',
+        'src/event/Event.ts',
+        'src/event/Message.ts',
+        'src/event/Melody.ts',
+        'src/event/Slot.ts',
+        'src/event/Trigger.ts',
+
         'src/number/Integer.ts',
         'src/number/Natural.ts',
         'src/number/PositiveInteger.ts',
@@ -16,7 +23,11 @@ export default defineConfig({
 
         'src/schema/JSONSchema.ts',
 
+        'src/util/CronTime.ts',
+        'src/util/Enumerate.ts',
+        'src/util/Permutation.ts',
         'src/util/RequestMethod.ts',
+        'src/util/id/UserID.ts',
     ],
     format: ['cjs', 'esm'],
     sourcemap: true,

@@ -4,6 +4,8 @@
         "lib": ["ESNext"],
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "isolatedModules": false,
+        "isolatedDeclarations": false,
         "outDir": "dist",
         "paths": {
             "@repo/types/*": ["src/*"],
