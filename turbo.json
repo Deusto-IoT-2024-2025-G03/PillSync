@@ -1,22 +1,36 @@
 {
     "$schema": "https://turbo.build/schema.json",
+
     "globalDependencies": ["**/.env.*local", "tsconfig.json"],
+    "globalEnv": ["*"],
+
     "ui": "tui",
+
     "tasks": {
         "clean": {
             "cache": false
         },
-        "build": {
-            "dependsOn": ["^build"],
-            "inputs": ["$TURBO_DEFAULT$"],
-            "outputs": ["dist/**"]
-        },
+
         "//#format": {
             "cache": false
         },
         "//#lint": {
             "cache": false
         },
+
+        "build": {
+            "dependsOn": ["^build", "^db:generate"],
+            "inputs": ["$TURBO_DEFAULT$"],
+            "outputs": ["dist/**"]
+        },
+
+        "db:generate": {
+            "cache": true
+        },
+        "db:push": {
+            "cache": false
+        },
+
         "dev": {
             "dependsOn": ["build", "^dev"],
             "cache": false,

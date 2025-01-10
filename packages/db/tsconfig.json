@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "lib": ["ESNext"],
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "outDir": "dist",
+        "paths": {
+            "@repo/db/*": ["src/*"],
+            "/": ["src/index.ts"],
+            "/*": ["src/*"]
+        },
+        "resolveJsonModule": true,
+        "rootDir": ".",
+        "strict": true,
+        "target": "ESNext"
+    },
+    "deleteOutDir": true,
+    "exclude": ["node_modules", "dist"],
+    "extends": "@repo/typescript-config/base.json",
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        },
+        "transpileOnly": true
+    }
+}

@@ -1,0 +1,13 @@
+model Event {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+
+    message Message?
+    melody  Melody?
+
+    trigger  Trigger
+    duration Int
+
+    host String
+
+    Slot Int
+}

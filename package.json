@@ -22,6 +22,8 @@
         "@commitlint/config-pnpm-scopes": "catalog:",
         "@commitlint/prompt-cli": "catalog:",
         "@commitlint/types": "catalog:",
+        "@repo/db": "workspace:",
+        "@repo/types": "workspace:",
         "@repo/typescript-config": "workspace:*",
         "@types/jest": "catalog:",
         "@types/node": "catalog:",
@@ -32,8 +34,8 @@
         "webpack": "catalog:",
         "webpack-node-externals": "catalog:"
     },
-    "packageManager": "pnpm@9.12.3",
+    "packageManager": "pnpm@9.15.2",
     "engines": {
-        "node": ">=22"
+        "node": "23.5"
     }
 }

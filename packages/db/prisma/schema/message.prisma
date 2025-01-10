@@ -1,0 +1,4 @@
+type Message {
+    from String
+    text String
+}
