@@ -4,7 +4,7 @@ import type { NextFunction, Request, Response } from 'express'
 export const VERSION = {
     type: VersioningType.HEADER as const,
     header: 'X-API-Version' as const,
-    defaultVersion: '2' as const,
+    defaultVersion: '1' as const,
 } as const
 
 const { type, header, defaultVersion } = VERSION

@@ -5,9 +5,9 @@ import configuration from 'config/configuration'
 import { DevModule } from 'dev/dev.module'
 import { HealthModule } from 'health/health.module'
 import Joi from 'joi'
-import { RouteModule } from 'route/route.module'
+import { EventModule } from 'event/event.module'
 import { SecurityModule } from 'security/security.module'
-import { HealthController } from 'health/health.controller'
+import { DBModule } from 'db/db.module'
 
 const NODE_ENV = Joi.string().valid('development', 'production', 'test').default('development')
 
@@ -91,6 +91,7 @@ const PARSER = Joi.alternatives([
 
         DevModule,
 
+        DBModule,
         RedisModule.forRootAsync(
             {
                 inject: [ConfigService],
@@ -105,7 +106,7 @@ const PARSER = Joi.alternatives([
             true
         ),
 
-        RouteModule,
+        EventModule,
         SecurityModule,
 
         HealthModule,

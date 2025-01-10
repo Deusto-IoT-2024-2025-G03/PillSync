@@ -11,7 +11,6 @@ import helmet from 'helmet'
 import { CorsInterceptor } from 'interceptor/cors.interceptor'
 import { CountMiddleware } from 'middleware/count.middleware'
 import { EmptyQueryMiddleware } from 'middleware/emptyquery.middleware'
-import { RedirectMiddleware } from 'middleware/redirect.middleware'
 import { VERSION, VersionMiddleware } from 'middleware/version.middleware'
 import { OpenApiConfig } from 'openapi/config'
 import type { Lt } from 'ts-arithmetic'
@@ -29,10 +28,6 @@ async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
         abortOnError: false,
         snapshot: true,
-        cors: {
-            credentials: true,
-            origin: 'http://localhost:3000',
-        },
         httpsOptions: {
             cert,
             key,
@@ -48,7 +43,7 @@ async function bootstrap() {
 
     app.useGlobalInterceptors(new CorsInterceptor())
 
-    app.use(helmet(), compression(), VersionMiddleware, RedirectMiddleware, CountMiddleware, EmptyQueryMiddleware)
+    app.use(helmet(), compression(), VersionMiddleware, CountMiddleware, EmptyQueryMiddleware)
 
     const configService = app.get(ConfigService)
 
@@ -65,14 +60,6 @@ async function bootstrap() {
         const urlencoded = configService.get<string | PositiveInteger>('http.parser.limit.urlencoded')
         if (urlencoded) app.useBodyParser('urlencoded', { limit: urlencoded, extended: true })
     }
-
-    // configService.set<boolean>('internals.blocked', true)
-
-    // {
-
-    // }
-
-    // configService.set<boolean>('internals.blocked', false)
 
     const port = configService.getOrThrow<Lt<Natural, 65535> | string>('http.port')
     await app.listen(port)

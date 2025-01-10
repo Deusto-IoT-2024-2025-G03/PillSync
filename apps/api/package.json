@@ -30,6 +30,7 @@
         "@nestjs/swagger": "catalog:",
         "@nestjs/terminus": "catalog:",
         "@nestjs/throttler": "catalog:",
+        "@repo/db": "workspace:",
         "@repo/types": "workspace:*",
         "@swc/cli": "catalog:",
         "axios": "catalog:",
