@@ -1,9 +1,6 @@
 {
     "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-    "extends": [
-        "./biome/formatter.json",
-        "./biome/linter.json"
-    ],
+    "extends": ["./biome/formatter.json", "./biome/linter.json"],
     "files": {
         "ignore": [
             "**/.turbo/**",
