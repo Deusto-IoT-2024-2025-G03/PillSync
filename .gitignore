@@ -22,9 +22,11 @@ coverage
 .vercel
 
 # Build Outputs
+.next/
 out/
 build
 dist
+storybook-static
 *.tsbuildinfo
 
 # Debug
@@ -35,6 +37,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+.direnv
 
 secrets
 **/config/*.yaml
