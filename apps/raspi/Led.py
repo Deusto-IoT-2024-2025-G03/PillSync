@@ -34,7 +34,7 @@ class Led:
 		except KeyboardInterrupt:
 			print("Programa finalizado por el usuario.")
 		finally:
-			GPIO.cleanup()
+			interrupt = 0
 
 
 
