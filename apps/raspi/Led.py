@@ -19,7 +19,7 @@ class Led:
 		GPIO.setup(self.Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 	def run(self):
-		self.servo.activate_servo()
+		self.servo.activate_servo(5)
 		GPIO.output(self.Led_rgb, False)
 		try:
 			while True:
@@ -28,6 +28,7 @@ class Led:
 				if input_state:
 					self.buzzer.play_song_loop()  # Play song until button is pressed
 				else:
+					self.servo.activate_servo(0)
 					GPIO.output(self.Button - 1, False)
 					servo.cleanup()
 					GPIO.output(self.Led_rgb, True)
@@ -45,8 +46,7 @@ if __name__ == "__main__":
 	buzzer = Buzzer()
 	lcd = Lcd()
 	servo = Servo()
-	servo.cleanup()
-	tiem.sleep(0.5)
-	led = Led(buzzer, lcd)
+	time.sleep(0.5)
+	led = Led(buzzer, lcd, servo)
 	led.run()
 

@@ -8,8 +8,8 @@ class Buzzer:
 	CANCION = 2
 	BEAT = 2
 	NOTES = [
-		"ccggaagffeeddc", 
-		"eefggfe dceefggfe dceg gfedc cc", 
+		"ccggaagffeeddc",
+		"eefggfe dceefggfe dceg gfedc cc",
 		"cceg ggaag cceg ggaag ceceg ggaag"
 	]
 	BEATS = [
