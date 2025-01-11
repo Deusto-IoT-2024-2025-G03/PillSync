@@ -3,34 +3,39 @@
 # -*- coding: utf-8 -*-
 import time
 import threading
-from grove.gpio import GPIO
+import RPi.GPIO as GPIO
 from grove.display.jhd1802 import JHD1802, main as LCDMain
 
 
 class Lcd:
-	def __init__(self, dict, button):
+	def __init__(self, dict):
 		self.lcd = JHD1802()
 		self.lcd.clear()
 		self.lcd.backlight(True)
 
 		self.messages = dict
-		self.button = button
+		self.button = 23
 
 	def move_message(self):
 		for sender, message in self.messages.items():
 			length = len(message) - 15  # Longitud del mensaje que cabe en la pantalla
 
-			while True:
-				for i in range(length + 1):
-					if GPIO.input(self.button) == GPIO.LOW:  # Si el botón está presionado
-						print("Botón presionado, deteniendo el movimiento.")
-						break
-					self.lcd.clear()
-					self.lcd.setCursor(1, 0)
-					self.lcd.write(sender)
-					self.lcd.setCursor(0, 0)
-					self.lcd.write(message[i:i + 16])  # Mostrar porciones del mensaje
-					time.sleep(0.4)
+			if length > 0:
+				while True:
+					GPIO.output(self.button - 1, True)
+					for i in range(length + 1):
+						if not GPIO.input(self.button):
+							# Si el botón está presionado
+							GPIO.output(self.button - 1, False)
+							print("Botón presionado, deteniendo el movimiento.")
+							break
+						else:
+							self.lcd.clear()
+							self.lcd.setCursor(1, 0)
+							self.lcd.write(sender)
+							self.lcd.setCursor(0, 0)
+							self.lcd.write(message[i:i + 16])  # Mostrar porciones del mensaje
+							time.sleep(0.4)
 
 			else:
 				self.lcd.write(message)  # Si el mensaje cabe, mostrarlo sin movimiento
@@ -45,5 +50,8 @@ if __name__ == "__main__":
 	}
 
 	button_pin = 23  # Número de pin donde tienes conectado el botón
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(22, GPIO.OUT)
+	GPIO.setup(23, GPIO.IN, pull_up_down=GPIO_PUD_UP)
 	lcd = Lcd(messages, button_pin)
-	lcd.display_message()
+	lcd.move_message()
