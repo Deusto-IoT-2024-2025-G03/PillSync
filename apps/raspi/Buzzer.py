@@ -8,15 +8,15 @@ class Buzzer:
 	CANCION = 2
 	BEAT = 2
 	NOTES = [
-        "ccggaagffeeddc", 
-        "eefggfe dceefggfe dceg gfedc cc", 
-        "cceg ggaag cceg ggaag ceceg ggaag"
-    ]
-    BEATS = [
-        [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1]
-    ]
+		"ccggaagffeeddc", 
+		"eefggfe dceefggfe dceg gfedc cc", 
+		"cceg ggaag cceg ggaag ceceg ggaag"
+	]
+	BEATS = [
+		[1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2],
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1]
+	]
 	TEMPO = 300
 
 	NOTE_FREQUENCIES = {
