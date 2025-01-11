@@ -14,12 +14,13 @@ if __name__ == "__main__":
 	}
 	# Definir las notas y los beats desde el main
 	note = [261, 329, 392, 329, 392, 440, 440, 392, 440, 440, 392, 329, 392]
-	beat = [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1]
+	beat = [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1]
 
 	GPIO.setmode(GPIO.BCM)
-	buzzer = Buzzer()
+	buzzer = Buzzer(note, beat)
 	lcd = Lcd(messages)
-	servo = Servo(note, beat)
+	servo = Servo(5)
 	time.sleep(0.5)
-	led = Led(buzzer, lcd, servo)
+	led = Led(buzzer, servo)
 	led.run()
+	lcd.move_message()
