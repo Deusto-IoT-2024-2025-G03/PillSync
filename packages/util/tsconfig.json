@@ -1,0 +1,46 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "baseUrl": "./",
+        "lib": [
+            "ESNext",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "outDir": "dist",
+        "paths": {
+            "@repo/util/*": [
+                "src/*"
+            ],
+            "/*": [
+                "src/*"
+            ],
+            "array/*": [
+                "src/array/*"
+            ]
+        },
+        "resolveJsonModule": true,
+        "rootDir": ".",
+        "strict": true,
+        "target": "ESNext",
+        "types": [
+            "../../packages/types/src/types.d.ts",
+            "@types/jest",
+            "@types/node"
+        ]
+    },
+    "deleteOutDir": true,
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "extends": "@repo/typescript-config/base.json",
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        },
+        "transpileOnly": true
+    }
+}

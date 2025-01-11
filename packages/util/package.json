@@ -1,0 +1,32 @@
+{
+    "name": "@repo/util",
+    "type": "module",
+    "exports": {
+        "./array/Arrayify": {
+            "import": "./src/array/Arrayify.ts",
+            "require": "./dist/Arrayify.cjs"
+        },
+        "./array/Dearrayify": {
+            "import": "./src/array/Dearrayify.ts",
+            "require": "./dist/Dearrayify.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "test": "jest --passWithNoTests",
+        "test:watch": "jest --watch --passWithNoTests",
+        "test:cov": "jest --coverage --passWithNoTests"
+    },
+    "devDependencies": {
+        "@repo/types": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "@turbo/gen": "catalog:",
+        "@types/jest": "catalog:",
+        "@types/node": "catalog:",
+        "jest": "catalog:",
+        "ts-arithmetic": "catalog:",
+        "ts-jest": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
+    }
+}
