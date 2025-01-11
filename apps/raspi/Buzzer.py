@@ -11,8 +11,8 @@ class Buzzer:
 	BEATS = [
 		[1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2]
-	]
+		[1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1]
+]
 	TEMPO = 300
 
 	NOTE_FREQUENCIES = {
@@ -47,10 +47,15 @@ class Buzzer:
 			Buzzer.play_tone(frequency, duration_ms)
 
 	def play_song():
-		length = len(Buzzer.NOTES[Buzzer.CANCION])
-		for i in range(length):
-			note = Buzzer.NOTES[Buzzer.CANCION][i]
-			beat_duration = Buzzer.BEATS[Buzzer.BEAT][i] * Buzzer.TEMPO
+		notes = Buzzer.NOTES[Buzzer.CANCION]
+		beats = Buzzer.BEATS[Buzzer.BEAT]
+		
+		if len(notes) != len(beats):
+			raise ValueError("The number of notes and beats must match.")
+		
+		for i in range(len(notes)):
+			note = notes[i]
+			beat_duration = beats[i] * Buzzer.TEMPO
 			if note == ' ':
 				time.sleep(beat_duration / 1000.0)
 			else:
@@ -58,17 +63,22 @@ class Buzzer:
 			time.sleep(Buzzer.TEMPO / 2000.0)
 	@staticmethod
 	def play_song_loop():
-
-		length = len(Buzzer.NOTES[Buzzer.CANCION])
+		notes = Buzzer.NOTES[Buzzer.CANCION]
+		beats = Buzzer.BEATS[Buzzer.BEAT]
+		
+		if len(notes) != len(beats):
+			raise ValueError("The number of notes and beats must match.")
+		
 		while True:  # Bucle infinito para tocar la canción en bucle
-			for i in range(length):
-				note = Buzzer.NOTES[Buzzer.CANCION][i]
-				beat_duration = Buzzer.BEATS[Buzzer.BEAT][i] * Buzzer.TEMPO
+			for i in range(len(notes)):
+				note = notes[i]
+				beat_duration = beats[i] * Buzzer.TEMPO
 				if note == ' ':
 					time.sleep(beat_duration / 1000.0)
 				else:
 					Buzzer.play_note(note, beat_duration)
 				time.sleep(Buzzer.TEMPO / 2000.0)
+				
 				# Revisar el estado del botón en cada iteración
 				if not GPIO.input(23):  # Si el botón está presionado
 					return  # Salir del bucle de la canción
