@@ -9,7 +9,7 @@ from grove.display.jhd1802 import JHD1802, main as LCDMain
 lock = threading.Lock()
 
 
-class LCD:
+class Lcd:
 	def __init__(self):
 		self.lcd = JHD1802()
 		self.lcd.clear()

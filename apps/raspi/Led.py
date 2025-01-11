@@ -2,7 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 from Buzzer import Buzzer
-
+from lcd import Lcd
 
 class Led:
 	def __init__(self, buzzer, lcd):
@@ -40,7 +40,7 @@ class Led:
 
 if __name__ == "__main__":
 	buzzer = Buzzer()
-	lcd = LCD()
+	lcd = Lcd()
 	led = Led(buzzer, lcd)
 	led.run()
 

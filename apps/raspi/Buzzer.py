@@ -56,7 +56,7 @@ class Buzzer:
 			else:
 				Buzzer.play_note(note, beat_duration)
 			time.sleep(Buzzer.TEMPO / 2000.0)
-
+	@staticmethod
 	def play_song_loop():
 
 		length = len(Buzzer.NOTES[Buzzer.CANCION])
@@ -69,7 +69,6 @@ class Buzzer:
 				else:
 					Buzzer.play_note(note, beat_duration)
 				time.sleep(Buzzer.TEMPO / 2000.0)
-				
 				# Revisar el estado del botón en cada iteración
 				if not GPIO.input(23):  # Si el botón está presionado
 					return  # Salir del bucle de la canción
