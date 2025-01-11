@@ -1,3 +1,9 @@
 RPi.GPIO
-rpi_ws281x
 Seeed-grove.py
+getmac
+jsonschema
+load_dotenv
+referencing
+requests
+rpi_ws281x
+schedule
