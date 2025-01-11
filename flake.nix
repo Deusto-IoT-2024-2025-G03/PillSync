@@ -51,6 +51,7 @@
               prisma
               turbo-unwrapped
               typescript
+              virtualenv
             ];
 
             # inherit (prisma) shellHook;
