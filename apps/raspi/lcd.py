@@ -56,7 +56,6 @@ if __name__ == "__main__":
 		"Sender2": "Otro mensaje para mover en la pantalla LCD.",
 		"Sender3": "mensaje"
 	}
-
 	button_pin = 23  # Número de pin donde tienes conectado el botón
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(22, GPIO.OUT)

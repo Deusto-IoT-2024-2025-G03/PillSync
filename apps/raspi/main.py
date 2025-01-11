@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+import RPi.GPIO as GPIO
+import time
+from buzzer import Buzzer
+from lcd import Lcd
+from servo import Servo
+from led import Led
+
+if __name__ == "__main__":
+	messages = {
+		"Sender1": "Este es un mensaje largo que se moverá.",
+		"Sender2": "Otro mensaje para mover en la pantalla LCD.",
+		"Sender3": "mensaje"
+	}
+	# Definir las notas y los beats desde el main
+	note = [261, 329, 392, 329, 392, 440, 440, 392, 440, 440, 392, 329, 392]
+	beat = [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1]
+
+	GPIO.setmode(GPIO.BCM)
+	buzzer = Buzzer()
+	lcd = Lcd(messages)
+	servo = Servo(note, beat)
+	time.sleep(0.5)
+	led = Led(buzzer, lcd, servo)
+	led.run()
