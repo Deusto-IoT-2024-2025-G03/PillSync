@@ -1,33 +1,52 @@
+# -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-import sys
-from grove import LCD as lcd
+from Buzzer import Buzzer
+from lcd import Lcd
+from Servo import Servo
 
-Buzzer = 26
-Led = 24
-Button = 23
+class Led:
+	def __init__(self, buzzer, lcd, servo):
+		self.Led_rgb = 24
+		self.Button = 23
+		self.buzzer = buzzer
+		self.lcd = lcd
+		self.servo = servo
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(Led, GPIO.OUT)
-GPIO.setup(Buzzer, GPIO.OUT)
-GPIO.setup(Button - 1, GPIO.OUT)
-GPIO.setup(Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(self.Led_rgb, GPIO.OUT)
+		GPIO.setup(self.Button - 1, GPIO.OUT)
+		GPIO.setup(self.Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+	def run(self):
+		self.servo.activate_servo(5)
+		GPIO.output(self.Led_rgb, False)
+		try:
+			while True:
+				GPIO.output(self.Button - 1, True)
+				input_state = GPIO.input(self.Button)
+				if input_state:
+					self.buzzer.play_song_loop()  # Play song until button is pressed
+				else:
+					self.servo.activate_servo(0)
+					GPIO.output(self.Button - 1, False)
+					GPIO.output(self.Led_rgb, True)
+					self.lcd.display_message("Botón presionado", 0)
+					print("Botón presionado, deteniendo buzzer.")
+					break
+		except KeyboardInterrupt:
+			print("Programa finalizado por el usuario.")
+		finally:
+			interrupt = 0
 
 
 
-try:
-	GPIO.output(Led, False)
-	while True:
-		GPIO.output(Button - 1, False)
-		input_state = GPIO.input(Button)
-		if not input_state:
-			GPIO.output(Button - 1, True)
-			GPIO.output(Buzzer, True)
-			time.sleep(0.5)
-			GPIO.output(Led, True)
-			GPIO.output(Buzzer, False)
-except KeyboardInterrupt:
-	print("Led.py finalizado")
-finally:
-	sjndf = 0
-	#GPIO.cleanup()
+if __name__ == "__main__":
+	GPIO.setmode(GPIO.BCM)
+	buzzer = Buzzer()
+	lcd = Lcd()
+	servo = Servo()
+	time.sleep(0.5)
+	led = Led(buzzer, lcd, servo)
+	led.run()
+
