@@ -30,7 +30,6 @@ class Led:
 				else:
 					self.servo.activate_servo(0)
 					GPIO.output(self.Button - 1, False)
-					servo.cleanup()
 					GPIO.output(self.Led_rgb, True)
 					self.lcd.display_message("Botón presionado", 0)
 					print("Botón presionado, deteniendo buzzer.")
@@ -43,6 +42,7 @@ class Led:
 
 
 if __name__ == "__main__":
+	GPIO.setmode(GPIO.BCM)
 	buzzer = Buzzer()
 	lcd = Lcd()
 	servo = Servo()
