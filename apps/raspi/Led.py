@@ -3,13 +3,15 @@ import RPi.GPIO as GPIO
 import time
 from Buzzer import Buzzer
 from lcd import Lcd
+from Servo import Servo
 
 class Led:
-	def __init__(self, buzzer, lcd):
+	def __init__(self, buzzer, lcd, servo):
 		self.Led_rgb = 24
 		self.Button = 23
 		self.buzzer = buzzer
 		self.lcd = lcd
+		self.servo = servo
 
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(self.Led_rgb, GPIO.OUT)
@@ -17,6 +19,7 @@ class Led:
 		GPIO.setup(self.Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 	def run(self):
+		self.servo.activate_servo()
 		GPIO.output(self.Led_rgb, False)
 		try:
 			while True:
@@ -26,7 +29,7 @@ class Led:
 					self.buzzer.play_song_loop()  # Play song until button is pressed
 				else:
 					GPIO.output(self.Button - 1, False)
-					time.sleep(0.5)
+					servo.cleanup()
 					GPIO.output(self.Led_rgb, True)
 					self.lcd.display_message("Botón presionado", 0)
 					print("Botón presionado, deteniendo buzzer.")
@@ -41,6 +44,9 @@ class Led:
 if __name__ == "__main__":
 	buzzer = Buzzer()
 	lcd = Lcd()
+	servo = Servo()
+	servo.cleanup()
+	tiem.sleep(0.5)
 	led = Led(buzzer, lcd)
 	led.run()
 
