@@ -1,31 +1,45 @@
 import RPi.GPIO as GPIO
 import time
-import sys
 from Buzzer import Buzzer
 
-class Led:
-	def main():
-		Led_rgb = 24
-		Button = 23
 
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(Led_rgb, GPIO.OUT)
-		GPIO.setup(Button - 1, GPIO.OUT)
-		GPIO.setup(Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		try:
-			GPIO.output(Led_rgb, False)
-			Buzzer.play_song()
-			while True:
-				GPIO.output(Button - 1, True)
-				input_state = GPIO.input(Button)
-				if not input_state:
-					GPIO.output(Button - 1, False)
-					time.sleep(0.5)
-					GPIO.output(Led_rgb, True)
-		except KeyboardInterrupt:
-			print("Led.py finalizado")
-		finally:
-			sjndf = 0
+class Led:
+    def __init__(self, buzzer, lcd):
+        self.Led_rgb = 24
+        self.Button = 23
+        self.buzzer = buzzer
+        self.lcd = lcd
+
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.Led_rgb, GPIO.OUT)
+        GPIO.setup(self.Button - 1, GPIO.OUT)
+        GPIO.setup(self.Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    def run(self):
+        GPIO.output(self.Led_rgb, False)
+        try:
+            while True:
+                GPIO.output(self.Button - 1, True)
+                input_state = GPIO.input(self.Button)
+                if input_state:
+                    self.buzzer.play_song_loop()  # Play song until button is pressed
+                else:
+                    GPIO.output(self.Button - 1, False)
+                    time.sleep(0.5)
+                    GPIO.output(self.Led_rgb, True)
+                    self.lcd.display_message("Botón presionado", 0)
+                    print("Botón presionado, deteniendo buzzer.")
+                    break
+        except KeyboardInterrupt:
+            print("Programa finalizado por el usuario.")
+        finally:
+            GPIO.cleanup()
+
+
+
 if __name__ == "__main__":
-	Led.main()
-	print(buzzer.BUZZER_PIN)
+    buzzer = Buzzer()
+    lcd = LCD()
+    led = Led(buzzer, lcd)
+    led.run()
+

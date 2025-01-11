@@ -3,18 +3,16 @@ import time
 
 
 class Buzzer:
-	BUZZER_PIN = 26
 
+	BUZZER_PIN = 26
 	CANCION = 2
 	BEAT = 2
-
 	NOTES = ["ccggaagffeeddc", "eefggfe dceefggfe dceg gfedc cc", "cceg ggaag cceg ggaag ceceg ggaag"]
-	BEATS = [[1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 4],
-		 [1, 1, 1, 1, 1, 1, 1, 1, 1,
-		  1, 1, 1, 1, 1, 1, 1, 1, 1,
-	  	1, 1, 1, 1, 1,
-	  	1, 1, 1, 1, 1, 1],
-		 [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2]]
+	BEATS = [
+        [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2]
+    ]
 	TEMPO = 300
 
 	NOTE_FREQUENCIES = {
@@ -28,8 +26,9 @@ class Buzzer:
 		'C': 523  # Do
 	}
 
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(BUZZER_PIN, GPIO.OUT)
+	def __init__(self):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.BUZZER_PIN, GPIO.OUT)
 
 	def play_tone(frequency, duration_ms):
 		period = 1.0 / frequency
@@ -58,6 +57,22 @@ class Buzzer:
 				Buzzer.play_note(note, beat_duration)
 			time.sleep(Buzzer.TEMPO / 2000.0)
 
+    def play_song_loop():
+
+        length = len(Buzzer.NOTES[Buzzer.CANCION])
+        while True:  # Bucle infinito para tocar la canción en bucle
+            for i in range(length):
+                note = Buzzer.NOTES[Buzzer.CANCION][i]
+                beat_duration = Buzzer.BEATS[Buzzer.BEAT][i] * Buzzer.TEMPO
+                if note == ' ':
+                    time.sleep(beat_duration / 1000.0)
+                else:
+                    Buzzer.play_note(note, beat_duration)
+                time.sleep(Buzzer.TEMPO / 2000.0)
+                
+                # Revisar el estado del botón en cada iteración
+                if not GPIO.input(23):  # Si el botón está presionado
+                    return  # Salir del bucle de la canción
 if __name__ == "__main__":
 	try:
 		play_song()
