@@ -23,6 +23,7 @@
             "dev/*": ["src/dev/*"],
             "event/*": ["src/event/*"],
             "health/*": ["src/health/*"],
+            "host/*": ["src/host/*"],
             "interceptor/*": ["src/interceptor/*"],
             "middleware/*": ["src/middleware/*"],
             "openapi/*": ["src/openapi/*"],

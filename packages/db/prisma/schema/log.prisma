@@ -1,0 +1,19 @@
+model Log {
+    id   String  @id @default(auto()) @map("_id") @db.ObjectId
+    type LogType
+
+    on DateTime @default(now())
+
+    host   Host?  @relation(fields: [hostId], references: [id])
+    hostId String @db.String
+
+    event   Event? @relation(fields: [eventId], references: [id])
+    eventId String @db.ObjectId
+
+    @@index([type, hostId, eventId])
+    @@map("logs")
+}
+
+enum LogType {
+    event
+}

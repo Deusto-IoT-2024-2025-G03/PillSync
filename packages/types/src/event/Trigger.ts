@@ -1,7 +1,10 @@
 import JSONSchema from '@repo/types/schema/JSONSchema'
 import CronTime from '@repo/types/util/CronTime'
+import { Trigger as PrismaTrigger } from '@repo/db'
 
 namespace Trigger {
+    export type Prisma = PrismaTrigger
+
     export const Schedule = CronTime
     export type Schedule = CronTime
 
@@ -28,6 +31,8 @@ namespace Trigger {
 interface Trigger {
     schedule: Schedule
 }
+
+export type Prisma = Trigger.Prisma
 
 export const { Schedule } = Trigger
 export type Schedule = Trigger.Schedule

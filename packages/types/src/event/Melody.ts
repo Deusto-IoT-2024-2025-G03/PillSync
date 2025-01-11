@@ -1,6 +1,9 @@
 import JSONSchema from '@repo/types/schema/JSONSchema'
+import { Melody as PrismaMelody } from '@repo/db'
 
 namespace Melody {
+    export type Prisma = PrismaMelody
+
     export namespace Schema {
         export const Ref = 'melody' as const
         export type Ref = typeof Ref
@@ -14,6 +17,8 @@ namespace Melody {
 }
 
 interface Melody {}
+
+export type Prisma = PrismaMelody
 
 export const { Schema } = Melody
 export type Schema = Melody.Schema

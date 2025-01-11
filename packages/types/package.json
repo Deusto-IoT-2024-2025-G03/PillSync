@@ -34,6 +34,10 @@
             "import": "./src/event/Event.ts",
             "require": "./dist/event/Event.cjs"
         },
+        "./event/Host": {
+            "import": "./src/event/Host.ts",
+            "require": "./dist/event/Host.cjs"
+        },
         "./event/Melody": {
             "import": "./src/event/Melody.ts",
             "require": "./dist/event/Melody.cjs"
@@ -78,6 +82,10 @@
             "import": "./src/util/Enumerate.ts",
             "require": "./dist/util/Enumerate.cjs"
         },
+        "./util/Hash": {
+            "import": "./src/util/Hash.ts",
+            "require": "./dist/util/Hash.cjs"
+        },
         "./util/Permutation": {
             "import": "./src/util/Permutation.ts",
             "require": "./dist/util/Permutation.cjs"
@@ -85,6 +93,14 @@
         "./util/RequestMethod": {
             "import": "./src/util/RequestMethod.ts",
             "require": "./dist/util/RequestMethod.cjs"
+        },
+        "./util/id/HostID": {
+            "import": "./src/util/id/HostID.ts",
+            "require": "./dist/util/id/HostID.cjs"
+        },
+        "./util/id/OID": {
+            "import": "./src/util/id/OID.ts",
+            "require": "./dist/util/id/OID.cjs"
         },
         "./util/id/UserID": {
             "import": "./src/util/id/UserID.ts",
@@ -100,7 +116,8 @@
     "dependencies": {
         "ajv": "catalog:",
         "ajv-errors": "catalog:",
-        "ajv-formats": "catalog:"
+        "ajv-formats": "catalog:",
+        "bson": "catalog:"
     },
     "devDependencies": {
         "@repo/typescript-config": "workspace:*",

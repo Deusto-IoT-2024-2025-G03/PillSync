@@ -11,6 +11,7 @@ export default defineConfig({
 
         'src/event/Duration.ts',
         'src/event/Event.ts',
+        'src/event/Host.ts',
         'src/event/Message.ts',
         'src/event/Melody.ts',
         'src/event/Slot.ts',
@@ -25,8 +26,11 @@ export default defineConfig({
 
         'src/util/CronTime.ts',
         'src/util/Enumerate.ts',
+        'src/util/Hash.ts',
         'src/util/Permutation.ts',
         'src/util/RequestMethod.ts',
+        'src/util/id/HostID.ts',
+        'src/util/id/OID.ts',
         'src/util/id/UserID.ts',
     ],
     format: ['cjs', 'esm'],
@@ -35,6 +39,5 @@ export default defineConfig({
     clean: true,
     minify: true,
     bundle: false,
-    target: 'es2022',
     tsconfig: './tsconfig.json',
 })

@@ -8,6 +8,7 @@ import Joi from 'joi'
 import { EventModule } from 'event/event.module'
 import { SecurityModule } from 'security/security.module'
 import { DBModule } from 'db/db.module'
+import { HostModule } from 'host/host.module'
 
 const NODE_ENV = Joi.string().valid('development', 'production', 'test').default('development')
 
@@ -107,6 +108,7 @@ const PARSER = Joi.alternatives([
         ),
 
         EventModule,
+        HostModule,
         SecurityModule,
 
         HealthModule,

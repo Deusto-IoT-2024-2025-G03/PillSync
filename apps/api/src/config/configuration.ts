@@ -12,5 +12,5 @@ export default async () => {
     YAML_CONFIG_FILE ??= join('config/config.yaml')
     YAML_CONFIG_FILE = join(__dirname, '..', 'dist', YAML_CONFIG_FILE)
 
-    return load(readFileSync(YAML_CONFIG_FILE, ENCODING)) as Record<string, unknown>
+    return { ...(load(readFileSync(YAML_CONFIG_FILE, ENCODING)) as Record<string, unknown>), NODE_ENV }
 }

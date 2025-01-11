@@ -1,0 +1,8 @@
+model Host {
+    id String @id @map("_id") @db.String
+
+    logs  Log[]
+    Event Event[]
+
+    @@map("hosts")
+}

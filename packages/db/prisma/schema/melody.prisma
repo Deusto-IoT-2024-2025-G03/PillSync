@@ -1,3 +1,4 @@
 type Melody {
-    unused Int
+    notes Bytes
+    beat  Bytes
 }

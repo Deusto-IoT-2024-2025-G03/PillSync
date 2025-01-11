@@ -5,9 +5,15 @@ model Event {
     melody  Melody?
 
     trigger  Trigger
-    duration Int
+    duration Int?
 
-    host String
+    host   Host   @relation(references: [id], fields: [hostId])
+    hostId String @db.String
 
-    Slot Int
+    slot Int
+
+    logs Log[]
+
+    @@index([hostId, slot])
+    @@map("events")
 }

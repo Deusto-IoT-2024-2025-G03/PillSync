@@ -1,7 +1,10 @@
 import type Range from '@repo/types/number/Range'
 import JSONSchema from '@repo/types/schema/JSONSchema'
+import { Message as PrismaMessage } from '@repo/db'
 
 namespace Message {
+    export type Prisma = PrismaMessage
+
     export namespace From {
         export namespace Length {
             export const Min = 3 as const
@@ -64,6 +67,8 @@ interface Message {
     from?: Message.From
     text: Message.Text
 }
+
+export type Prisma = PrismaMessage
 
 export const { From } = Message
 export type From = Message.From

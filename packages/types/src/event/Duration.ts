@@ -1,7 +1,7 @@
 import type Natural from '@repo/types/number/Natural'
 import JSONSchema from '@repo/types/schema/JSONSchema'
 
-export namespace Duration {
+namespace Duration {
     export namespace Schema {
         export const Ref = 'duration' as const
         export type Ref = typeof Ref
