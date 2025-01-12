@@ -32,6 +32,19 @@
                 "includeInlayFunctionLikeReturnTypeHints": true,
                 "includeInlayEnumMemberValueHints": true
             }
+        },
+        "pyright": {
+            "settings": {
+                "python": {
+                    "pythonPath": "apps/raspi/env/bin/python"
+                },
+                "python.analysis": {
+                    "typeCheckingMode": "off"
+                },
+                "pyright": {
+                    "disableOrganizeImports": true
+                }
+            }
         }
     }
 }

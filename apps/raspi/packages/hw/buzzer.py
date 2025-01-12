@@ -3,7 +3,6 @@ import RPi.GPIO as GPIO
 import time
 
 class Buzzer:
-
 	BUZZER_PIN = 26
 	TEMPO = 300  # Tempo base
 
@@ -28,7 +27,7 @@ class Buzzer:
 	def play_song_loop(self):
 		if len(self.note) != len(self.beat):
 			raise ValueError("The number of notes and beats must match.")
-		
+
 		while True:  # Bucle infinito para tocar la canción
 			for i in range(len(self.note)):
 				n = self.note[i]
@@ -38,7 +37,7 @@ class Buzzer:
 				else:
 					self.play_tone(n, b)
 				time.sleep(self.TEMPO / 2000.0)
-				
+
 				# Revisar el estado del botón en cada iteración
 				if not GPIO.input(23):  # Si el botón está presionado
 					return  # Salir del bucle de la canción

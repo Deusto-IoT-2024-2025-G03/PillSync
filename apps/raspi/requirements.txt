@@ -3,6 +3,7 @@ Seeed-grove.py
 getmac
 jsonschema
 load_dotenv
+pytz
 referencing
 requests
 rpi_ws281x
