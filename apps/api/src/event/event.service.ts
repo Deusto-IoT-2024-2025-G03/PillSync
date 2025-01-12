@@ -1,15 +1,15 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common'
+import { BadRequestException, ForbiddenException, Inject, Injectable } from '@nestjs/common'
 import type Some from '@repo/types/array/Some'
 import Host from '@repo/types/event/Host'
 import type Event from '@repo/types/event/Event'
-import { Data, ID } from '@repo/types/event/Event'
+import { type Data, ID, validate, Trigger } from '@repo/types/event/Event'
 import Hash from '@repo/types/util/Hash'
 import { DBService } from 'db/db.service'
 import Arrayify from '@repo/util/array/Arrayify'
 
 @Injectable()
 export class EventService {
-    @Inject(DBService) private declare dbService: DBService
+    @Inject(DBService) private declare readonly dbService: DBService
 
     private async get(
         { id, host }: { id?: Some<Event>; host?: Host } = {},
@@ -19,16 +19,19 @@ export class EventService {
             ?.map(x => ID.get(x))
             .filter(x => x !== undefined)
 
-        host = Host.ID.get(host)
+        const hostId = Host.ID.get(host)
 
         const where: NonNullable<Parameters<typeof this.dbService.event.findMany>[0]>['where'] = {
             id: id ? { in: id as string[] } : undefined,
-            host,
+            hostId,
         }
 
         if (count) return this.dbService.event.count({ where })
         if (onlyId) return (await this.dbService.event.findMany({ where, select: { id: true } })).map(({ id }) => id)
-        return this.dbService.event.findMany({ where })
+        return (await this.dbService.event.findMany({ where })).map(({ hostId: host, ...event }) => ({
+            ...event,
+            host,
+        }))
     }
 
     count(query: Parameters<typeof this.get>[0] = {}) {
@@ -60,12 +63,17 @@ export class EventService {
     }
 
     async put(event: Some<Event>, { host }: { host: Host }) {
+        const errors = []
+
         event = Arrayify(event)
         for (const e of event) {
-            if (ID.is(e)) throw new BadRequestException('Invalid event')
+            if (ID.is(e)) throw new BadRequestException('Invalid event.')
+            if (!e.messages) e.messages = []
+            if (!this.validate(e, errors)) throw new BadRequestException({ event: e, errors })
         }
 
-        host = Host.ID.get(host)
+        const hostId = Host.ID.get(host)
+        if (!hostId) throw new BadRequestException('Invalid host ID.')
 
         const create: Record<string, NonNullable<Parameters<typeof this.dbService.event.create>[0]>['data']> = {}
         const update: Record<string, NonNullable<Parameters<typeof this.dbService.event.update>>[0]> = {}
@@ -74,8 +82,9 @@ export class EventService {
         let createSome = false
         let updateSome = false
 
-        for (let e of event as Data[]) {
-            const id = ID.get(e)!
+        for (const e of event as Data[]) {
+            const id = ID.get(e)
+            if (!id) throw new BadRequestException('Invalid event.')
             const f = found[id]
 
             if (f && Hash(e) === Hash(f)) continue
@@ -84,7 +93,15 @@ export class EventService {
                 | (typeof update)[keyof typeof update]['data']
                 | (typeof create)[keyof typeof create]
 
-            if (!f) (data as (typeof create)[keyof typeof create]).id = id
+            if (f) {
+                if (f.host !== hostId) throw new ForbiddenException(`Not the parent of event '${f.id}'`)
+            } else (data as (typeof create)[keyof typeof create]).id = id
+            data.hostId = hostId
+            data.duration = e.duration
+            data.melody = e.melody
+            data.messages = e.messages
+            data.slot = e.slot
+            data.trigger = { schedule: Trigger.Schedule.Prisma(e.trigger.schedule) }
 
             if (f) {
                 update[id] = { where: { id }, data }
@@ -96,24 +113,40 @@ export class EventService {
         }
 
         let createHost: NonNullable<Parameters<typeof this.dbService.host.create>[0]>['data']
-        if (!(await this.dbService.host.count({ where: { id: host } }))) createHost = { id: host }
+        if (!(await this.dbService.host.count({ where: { id: hostId } }))) createHost = { data: { id: hostId } }
 
         if (updateSome) {
             let ret: Awaited<ReturnType<typeof this.dbService.$transaction>> = []
             if (createSome)
                 ret = await this.dbService.$transaction([
+                    ...(createHost ? [this.dbService.host.create(createHost)] : []),
                     this.dbService.event.createMany({ data: Object.values(create) }),
                     ...Object.values(update).map(update => this.dbService.event.update(update)),
                 ])
             else
                 ret = await this.dbService.$transaction([
+                    ...(createHost ? [this.dbService.host.create(createHost)] : []),
                     ...Object.values(update).map(update => this.dbService.event.update(update)),
                 ])
 
             return ret
         }
 
-        if (!createSome) return []
+        if (!createSome) {
+            if (createHost) return this.dbService.host.create(createHost)
+            return []
+        }
+
+        if (createHost)
+            return this.dbService.$transaction([
+                [this.dbService.host.create(creatHost)],
+                this.dbService.event.createMany({ data: Object.values(create) }),
+            ])
+
         return this.dbService.event.createMany({ data: Object.values(create) })
+    }
+
+    validate(event: Event.Data) {
+        return validate(event)
     }
 }
