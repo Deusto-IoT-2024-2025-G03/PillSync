@@ -90,21 +90,20 @@ namespace OID {
         return undefined
     }
 
-    export namespace JSONSchema {
+    export namespace Schema {
         export const Ref = 'oid' as const
         export type Ref = typeof Ref
 
         export const Schema = {
+            $id: Ref,
+
             type: _JSONSchema.Type.String,
             pattern: Regex.source,
         } as const satisfies Schema
+
         export type Schema = _JSONSchema<string>
     }
 
-    export const { Ref } = JSONSchema
-    export type Ref = JSONSchema.Ref
-
-    export const { Schema } = JSONSchema
     export type Schema = JSONSchema.Schema
 }
 

@@ -1,4 +1,4 @@
-import JSONSchema from '@repo/types/schema/JSONSchema'
+import JSONSchema, { AddErrorMessages, Partialize } from '@repo/types/schema/JSONSchema'
 import _Message from '@repo/types/event/Message'
 import _Melody from '@repo/types/event/Melody'
 import _Trigger from '@repo/types/event/Trigger'
@@ -7,6 +7,9 @@ import _Slot from '@repo/types/event/Slot'
 import _Host from '@repo/types/event/Host'
 import type { Event as PrismaEvent } from '@repo/db'
 import OID from '@repo/types/util/id/OID'
+import Ajv from 'ajv'
+import ajv_errors from 'ajv-errors'
+import addFormats from 'ajv-formats'
 
 namespace Event {
     export type Prisma = PrismaEvent
@@ -36,7 +39,7 @@ namespace Event {
         id: Event.ID
         host: Host
 
-        message?: Event.Message
+        messages: Event.Message[]
         melody?: Event.Melody
 
         trigger: Event.Trigger
@@ -53,12 +56,12 @@ namespace Event {
             $id: Ref,
             type: JSONSchema.Type.Object,
 
-            required: ['id', 'host', 'trigger', 'duration', 'slot'],
+            required: ['id', 'host', 'messages', 'trigger'],
             properties: {
-                id: ID.Schema,
+                id: ID.Schema.Schema,
                 host: { oneOf: [Host.ID.Schema.Schema, { $ref: Host.Schema.Ref }] },
 
-                message: { $ref: Message.Schema.Ref },
+                messages: { type: JSONSchema.Type.Array, items: { $ref: Message.Schema.Ref } },
                 melody: { $ref: Melody.Schema.Ref },
 
                 trigger: { $ref: Trigger.Schema.Ref },
@@ -72,6 +75,44 @@ namespace Event {
     }
 
     export type Schema = Schema.Schema
+
+    let ajv!: Ajv
+
+    export function validate(event: unknown, errors?: string[]): event is Data {
+        if (!ajv) {
+            ajv = new Ajv({
+                allErrors: true,
+                verbose: true,
+            })
+
+            ajv_errors(ajv)
+            addFormats(ajv)
+
+            for (const { Schema } of [
+                Host.Schema,
+                Message.Schema,
+                Melody.Schema,
+                Trigger.Schema,
+                Duration.Schema,
+                Slot.Schema,
+                Event.Schema,
+            ]) {
+                ajv.addSchema([Schema, Partialize(Schema)].map(AddErrorMessages))
+            }
+        }
+
+        if (errors) {
+            errors.splice(0)
+            const validate = ajv.compile({ $ref: Schema.Ref })
+
+            const ret = validate(event)
+            errors.push(...validate.errors)
+
+            return ret
+        }
+
+        return ajv.validate(Schema.Ref, event)
+    }
 }
 
 export type Prisma = PrismaEvent
@@ -98,6 +139,8 @@ export type Slot = Event.Slot
 
 export const { Schema } = Event
 export type Schema = Event.Schema
+
+export const { validate } = Event
 
 type Event = ID | Data
 

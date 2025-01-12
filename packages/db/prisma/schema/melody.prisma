@@ -1,4 +1,4 @@
 type Melody {
-    notes Bytes
-    beat  Bytes
+    notes Int[]
+    beat  Int[]
 }

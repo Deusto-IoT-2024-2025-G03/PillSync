@@ -1,8 +1,8 @@
 model Event {
     id String @id @default(auto()) @map("_id") @db.ObjectId
 
-    message Message?
-    melody  Melody?
+    messages Message[]
+    melody   Melody?
 
     trigger  Trigger
     duration Int?
@@ -10,7 +10,7 @@ model Event {
     host   Host   @relation(references: [id], fields: [hostId])
     hostId String @db.String
 
-    slot Int
+    slot Int @default(0)
 
     logs Log[]
 

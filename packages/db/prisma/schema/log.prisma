@@ -15,5 +15,6 @@ model Log {
 }
 
 enum LogType {
-    event
+    start
+    end
 }

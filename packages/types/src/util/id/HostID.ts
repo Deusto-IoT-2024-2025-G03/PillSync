@@ -48,6 +48,8 @@ namespace HostID {
         export type Ref = typeof Ref
 
         export const Schema = {
+            $id: Ref,
+
             type: JSONSchema.Type.String,
             pattern: Regex.source,
         } as const satisfies Schema

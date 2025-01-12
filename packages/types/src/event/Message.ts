@@ -1,6 +1,9 @@
 import type Range from '@repo/types/number/Range'
-import JSONSchema from '@repo/types/schema/JSONSchema'
-import { Message as PrismaMessage } from '@repo/db'
+import JSONSchema, { AddErrorMessages, Partialize } from '@repo/types/schema/JSONSchema'
+import type { Message as PrismaMessage } from '@repo/db'
+import Ajv from 'ajv'
+import ajv_errors from 'ajv-errors'
+import addFormats from 'ajv-formats'
 
 namespace Message {
     export type Prisma = PrismaMessage
@@ -33,6 +36,11 @@ namespace Message {
 
     export type Text = string & { length: Text.Length }
 
+    export interface Data {
+        from?: Message.From
+        text: Message.Text
+    }
+
     export namespace Schema {
         export const Ref = 'message' as const
         export type Ref = typeof Ref
@@ -61,11 +69,24 @@ namespace Message {
     }
 
     export type Schema = Schema.Schema
-}
 
-interface Message {
-    from?: Message.From
-    text: Message.Text
+    let ajv!: Ajv
+
+    export function validate(message: unknown): message is Data {
+        if (!ajv) {
+            ajv = new Ajv({
+                allErrors: true,
+                verbose: true,
+            })
+
+            ajv_errors(ajv)
+            addFormats(ajv)
+
+            ajv.addSchema([Schema.Schema, Partialize(Schema.Schema)].map(AddErrorMessages))
+        }
+
+        return ajv.validate(Schema.Ref, message)
+    }
 }
 
 export type Prisma = PrismaMessage
@@ -78,5 +99,11 @@ export type Text = Message.Text
 
 export const { Schema } = Message
 export type Schema = Message.Schema
+
+export const { validate } = Message
+
+export type Data = Message.Data
+
+type Message = Data
 
 export default Message

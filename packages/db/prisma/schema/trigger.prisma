@@ -1,3 +1,11 @@
 type Trigger {
-    schedule String
+    schedule Schedule
+}
+
+type Schedule {
+    minute     String
+    hour       String
+    dayOfMonth String
+    month      String
+    dayOfWeek  String
 }

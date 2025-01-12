@@ -1,5 +1,8 @@
 import type Range from '@repo/types/number/Range'
-import JSONSchema from '@repo/types/schema/JSONSchema'
+import JSONSchema, { AddErrorMessages, Partialize } from '@repo/types/schema/JSONSchema'
+import Ajv from 'ajv'
+import ajv_errors from 'ajv-errors'
+import addFormats from 'ajv-formats'
 
 namespace Slot {
     export const Min = 0 as const
@@ -24,6 +27,24 @@ namespace Slot {
     }
 
     export type Schema = Schema.Schema
+
+    let ajv!: Ajv
+
+    export function validate(slot: unknown): slot is Slot {
+        if (!ajv) {
+            ajv = new Ajv({
+                allErrors: true,
+                verbose: true,
+            })
+
+            ajv_errors(ajv)
+            addFormats(ajv)
+
+            ajv.addSchema([Schema.Schema, Partialize(Schema.Schema)].map(AddErrorMessages))
+        }
+
+        return ajv.validate(Schema.Ref, slot)
+    }
 }
 
 type Slot = Range<Slot.Min, Slot.Max>
@@ -36,5 +57,7 @@ export type Max = Slot.Max
 
 export const { Schema } = Slot
 export type Schema = Slot.Schema
+
+export const { validate } = Slot
 
 export default Slot
