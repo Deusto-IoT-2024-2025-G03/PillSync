@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-from buzzer import Buzzer
-from servo import Servo
+from packages.hw.buzzer import Buzzer
+from packages.hw.servo import Servo
 
 class Led:
 	def __init__(self, buzzer, servo):

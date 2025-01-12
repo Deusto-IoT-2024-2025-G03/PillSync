@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-from buzzer import Buzzer
-from lcd import Lcd
-from servo import Servo
-from led import Led
+from packages.hw import Buzzer, Lcd, Led, Servo
 
 if __name__ == "__main__":
 	messages = {

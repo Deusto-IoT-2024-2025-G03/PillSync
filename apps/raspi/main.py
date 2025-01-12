@@ -42,7 +42,7 @@ def get_my_events():
     return EVENTS
 
 if __name__ == '__main__':
-    text: str | None
+    text: str | None = None
     try:
         with open("events.json", "r", encoding='utf-8') as f:
             text = json.load(f)
