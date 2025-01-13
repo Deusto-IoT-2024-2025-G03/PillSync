@@ -3,7 +3,7 @@
 import time
 import RPi.GPIO as GPIO
 from grove.display.jhd1802 import JHD1802
-from packages.hw import setup
+from .setup import setup
 
 class Lcd:
     def __init__(self, dict, button=23):

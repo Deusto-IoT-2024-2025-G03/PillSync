@@ -2,7 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 from typing import List
-from packages.hw import setup
+from .setup import setup
 
 Notes = List[int]
 Beat = List[int]

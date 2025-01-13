@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-from packages.hw import Buzzer, Lcd, Servo
+from .buzzer import Buzzer
+from .led import Led
+from .lcd import Lcd
+from .setup import setup
 
 class Led:
     def __init__(self, buzzer, servo):
@@ -10,7 +13,7 @@ class Led:
         self.buzzer = buzzer
         self.servo = servo
 
-        GPIO.setmode(GPIO.BCM)
+        setup()
         GPIO.setup(self.Led_rgb, GPIO.OUT)
         GPIO.setup(self.Button - 1, GPIO.OUT)
         GPIO.setup(self.Button, GPIO.IN, pull_up_down=GPIO.PUD_UP)

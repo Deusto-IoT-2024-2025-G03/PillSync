@@ -2,7 +2,7 @@
 
 import RPi.GPIO as GPIO
 import time
-from packages.hw import setup
+from .setup import setup
 
 class Servo:
     def __init__(self, day, frequency=50):
