@@ -3,7 +3,7 @@ from packages.api import get_session, fetch, is_valid
 from packages.host import HEADER as HOST_HEADER, hash
 from packages.event import play
 from typing import Dict
-from schedule import every, repeat, run_pending
+# from schedule import every, repeat, run_pending
 import json
 
 EVENTS: List[Dict] | None = None

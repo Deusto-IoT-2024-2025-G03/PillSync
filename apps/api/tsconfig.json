@@ -12,63 +12,27 @@
         "inlineSources": true,
         "isolatedModules": false,
         "isolatedDeclarations": false,
-        "lib": [
-            "ESNext"
-        ],
+        "lib": ["ESNext"],
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
-            "/*": [
-                "src/*"
-            ],
-            "db/*": [
-                "src/db/*"
-            ],
-            "config/*": [
-                "src/config/*"
-            ],
-            "decorator/*": [
-                "src/decorator/*"
-            ],
-            "dev/*": [
-                "src/dev/*"
-            ],
-            "event/*": [
-                "src/event/*"
-            ],
-            "health/*": [
-                "src/health/*"
-            ],
-            "host/*": [
-                "src/host/*"
-            ],
-            "interceptor/*": [
-                "src/interceptor/*"
-            ],
-            "middleware/*": [
-                "src/middleware/*"
-            ],
-            "openapi/*": [
-                "src/openapi/*"
-            ],
-            "pipe/*": [
-                "src/pipe/*"
-            ],
-            "route/*": [
-                "src/route/*"
-            ],
-            "schema/*": [
-                "src/schema/*"
-            ],
-            "security/*": [
-                "src/security/*"
-            ],
-            "secrets": [
-                "secrets/*"
-            ],
-            "test/*": [
-                "test/*"
-            ]
+            "/*": ["src/*"],
+            "db/*": ["src/db/*"],
+            "config/*": ["src/config/*"],
+            "decorator/*": ["src/decorator/*"],
+            "dev/*": ["src/dev/*"],
+            "event/*": ["src/event/*"],
+            "health/*": ["src/health/*"],
+            "host/*": ["src/host/*"],
+            "interceptor/*": ["src/interceptor/*"],
+            "middleware/*": ["src/middleware/*"],
+            "openapi/*": ["src/openapi/*"],
+            "pipe/*": ["src/pipe/*"],
+            "route/*": ["src/route/*"],
+            "schema/*": ["src/schema/*"],
+            "security/*": ["src/security/*"],
+            "secrets": ["secrets/*"],
+            "test/*": ["test/*"]
         },
         "removeComments": true,
         "resolveJsonModule": true,
@@ -77,25 +41,17 @@
         "strict": true,
         "sourceMap": true,
         "target": "ESNext",
-        "types": [
-            "@types/jest",
-            "@types/node"
-        ]
+        "types": ["@types/jest", "@types/node"]
     },
     "extends": "@repo/typescript-config/base.json",
-    "exclude": [
-        "node_modules"
-    ],
+    "exclude": ["node_modules"],
     "ts-node": {
         "experimentalResolver": true,
         "files": true,
         "transpileOnly": false,
         "compilerOptions": {
             "module": "CommonJS",
-            "types": [
-                "./src/types.d.ts",
-                "@types/node"
-            ]
+            "types": ["./src/types.d.ts", "@types/node"]
         }
     }
 }

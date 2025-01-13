@@ -139,7 +139,7 @@ export class EventService {
 
         if (createHost)
             return this.dbService.$transaction([
-                [this.dbService.host.create(creatHost)],
+                this.dbService.host.create(createHost),
                 this.dbService.event.createMany({ data: Object.values(create) }),
             ])
 

@@ -19,8 +19,6 @@ def play(e: Event):
 
     messages = e.get('messages')
 
-    GPIO.setmode(GPIO.BCM)
-
     buzzer = Buzzer(melody.get('notes'), melody.get('beat'))
 
     servo = Servo(5)

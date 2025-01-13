@@ -11,7 +11,7 @@ const DECORATORS = {
 
 export const Found = (
     path?: Parameters<typeof Get>[0],
-    method: 'GET' | 'HEAD' | 'PUT' | 'PATCH' | 'DELETE' = 'GET',
+    method: keyof typeof DECORATORS = 'GET',
     message = 'Not Found'
 ): MethodDecorator => {
     return (target, key, descriptor: PropertyDescriptor) => {
