@@ -27,6 +27,7 @@ def get_my_events():
         if not EVENTS:
             raise e
 
+        print(e)
         return EVENTS
 
     EVENTS = [{k: v for k, v in e.items() if v != None} for e in EVENTS]

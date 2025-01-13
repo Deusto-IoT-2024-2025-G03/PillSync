@@ -85,6 +85,9 @@ def fetch(
     if body and (method == 'POST' or method == 'PUT' or method == 'PATCH'):
         if isinstance(body, str):
             args['data'] = body
+
+            if 'Content-Type' not in headers:
+                headers['Content-Type'] = 'text/plain;charset=utf-8'
         else:
             args['json'] = body
 
