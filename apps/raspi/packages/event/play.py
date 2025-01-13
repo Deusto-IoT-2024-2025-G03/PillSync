@@ -1,12 +1,14 @@
 from packages.event.types import Event
-import RPi.GPIO as GPIO
-import time
+from time import sleep
+import datetime
 from packages.hw import Buzzer, Lcd, Servo, Led
 from packages.api import fetch, is_valid
 
 def play(e: Event):
     if not is_valid(e, 'event'):
         raise ValueError(f"Invalid event: {e}")
+
+    print(f"Playing event {e.get('id')}...")
 
     r = fetch(endpoint=f"event/{e.get('id')}", method='POST', body='start')
     if not r.ok:
@@ -18,8 +20,11 @@ def play(e: Event):
 
     buzzer = Buzzer(melody.get('notes'), melody.get('beat'))
 
-    servo = Servo(5)
-    time.sleep(0.5)
+    day = int(datetime.datetime.today().strftime('%w'))
+    print(f"Today is {datetime.datetime.today().strftime('%w')}.\nServing medication in slot {e.get('slot', 0)}...")
+
+    servo = Servo(day)
+    sleep(0.5)
 
     led = Led(buzzer, servo)
     led.run()
@@ -31,6 +36,8 @@ def play(e: Event):
         ])
     )
     lcd.move_message()
+
+    print(f"Event {e.get('id')} has ended.")
 
     r = fetch(endpoint=f"event/{e.get('id')}", method='POST', body='end')
     if not r.ok:

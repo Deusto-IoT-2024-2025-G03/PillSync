@@ -29,6 +29,8 @@ class Lcd:
                         GPIO.output(self.button - 1, False)
                         print("Boton presionado, siguiente mensaje")
                         time.sleep(1)
+                        self.lcd.clear()
+                        self.lcd.setCursor(0, 0)
                         break
                     else:
                         self.lcd.clear()
