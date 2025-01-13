@@ -5,6 +5,6 @@ SETUP = False
 def setup():
     global SETUP
 
-    GPIO.setup(GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
 
     SETUP = True

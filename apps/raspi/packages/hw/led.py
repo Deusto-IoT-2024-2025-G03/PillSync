@@ -2,7 +2,6 @@
 import RPi.GPIO as GPIO
 import time
 from .buzzer import Buzzer
-from .led import Led
 from .lcd import Lcd
 from .setup import setup
 

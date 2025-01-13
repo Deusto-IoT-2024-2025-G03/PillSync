@@ -1,10 +1,7 @@
 from packages.event.types import Event
 import RPi.GPIO as GPIO
 import time
-from packages.hw.buzzer import Buzzer
-from packages.hw.lcd import Lcd
-from packages.hw.servo import Servo
-from packages.hw.led import Led
+from packages.hw import Buzzer, Lcd, Servo, Led
 from packages.api import fetch, is_valid
 
 def play(e: Event):

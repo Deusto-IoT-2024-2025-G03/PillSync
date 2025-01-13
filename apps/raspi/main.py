@@ -5,6 +5,7 @@ from packages.event import play
 from typing import Dict
 # from schedule import every, repeat, run_pending
 import json
+from RPi import GPIO
 
 EVENTS: List[Dict] | None = None
 FETCH_EVERY_MINUTES = 15
@@ -64,3 +65,5 @@ if __name__ == '__main__':
 
     for e in get_my_events():
         play(e)
+
+    GPIO.cleanup()

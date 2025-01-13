@@ -38,7 +38,7 @@ class Buzzer:
 
     def play_song_loop(self):
         if len(self.notes) != len(self.beat):
-            raise ValueError("The number of notess and beats must match.")
+            raise ValueError("The number of notes and beats must match.")
 
         while True:  # Bucle infinito para tocar la canción
             for i in range(len(self.notes)):
